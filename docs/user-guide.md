@@ -157,7 +157,7 @@ mute instead. Click **GROUPS** at the head of the row to pin groups: pinned
 groups come first, in the order you pin them, and the **APC40 mk2 · busk**
 controller layout puts the first four on its track faders 5–8.
 
-The **grand master** (top bar) scales all dimmer/white output. **Blackout** (top bar or `B`) zeroes intensity and strobing instantly — it always wins.
+The **grand master** (top bar) scales all dimmer/white output, and a fixture's background level with it. **Blackout** (top bar or `B`) zeroes intensity and strobing instantly and stops a fixture's own effect programs — it always wins.
 
 ## The look editor
 
@@ -166,12 +166,14 @@ Select a pad → the Look tab shows its editor. A look is a list of **parts**; e
 - **Dimmer** — intensity 0–100%.
 - **Colour** — hue + saturation faders plus swatches. Derbies can't mix colour: they quantise to the nearest of their 14 fixed colour slots ("auto"), or pick a slot from the dropdown.
 - **Derby extras** — *ring blinder* toggle (the white LED ring is on/off hardware — there is no ring dimmer), *ring FX* (the ring's built-in strobe patterns), *motor* (off / static aim / rotate + speed).
-- **Optics** (imported moving heads) — *gobo* and *prism* slot pickers built from the fixture's own wheel, a *spin* fader for each wheel that rotates, and the strobe's *pattern* (plain / pulse / random) where the shutter has the bands. Not set leaves a wheel where the fixture parks it. A fixture with a centre *flower* effect (a Robin Spiider) gets a **flower spin** fader of the same shape: the middle is still, either end is full speed one way, and not set leaves the effect off. It is nudge-able and an effect target like the wheel spins.
+- **Optics** (imported moving heads) — *gobo* and *prism* slot pickers built from the fixture's own wheel, a *spin* fader for each wheel that rotates, and the strobe's *pattern* (plain / pulse / random / rise / fall / swell) where the shutter has the bands: rise fades each flash in, fall fades it out, swell does both. Some fixtures (a COLORado PXL Curve) add *random rise*, *random fall*, *random pulse* and *pulse 2*, and with that many the patterns are a list rather than buttons. Not set leaves a wheel where the fixture parks it. A fixture with a centre *flower* effect (a Robin Spiider) gets a **flower spin** fader of the same shape: the middle is still, either end is full speed one way, and not set leaves the effect off. It is nudge-able and an effect target like the wheel spins.
 - **White** — the dedicated white emitter on an RGBW head, offered whenever
   something in the group actually drives one. Distinct from a derby's *ring
   blinder*, which is on/off hardware.
 - **Strobe** — shutter rate, slow → fast.
-- **Position** — pan/tilt for moving heads.
+- **Position** — pan/tilt for moving heads, and *move speed* where the fixture has a speed channel: fastest at the right, whichever way the fixture's own channel runs.
+- **Built-in colour and background** (on the Colour tab, where the fixture has them) — *built-in colour* picks one of the fixture's preset colours, and *background colour* and *background level* set the second colour a pixel fixture shows behind its programs. Picking a background colour brings its level up unless the look sets one.
+- **Programs** (imported fixtures with shows of their own) — *move program*, *program* and *program 2* pick from the fixture's own list by name or number, 0 being off, each with its speed and fade where the fixture has them. The fixture plays a program itself, so the stage shows the look around it but not the program.
 - **Haze** — output + haze fan for hazer-type fixtures (merged highest-wins with the manual haze slider in the top bar).
 
 Enable a parameter with the checkbox to its left; a look only writes the parameters it has enabled, which is what lets layers combine cleanly.

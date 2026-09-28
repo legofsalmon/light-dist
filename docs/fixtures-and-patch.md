@@ -121,6 +121,39 @@ face is laid out in whichever plane the pixels actually lie in, so a bar or
 panel reads across and up as before and a moving head's face reads as a
 face, not a line.
 
+**Levels on a layered face.** A bar whose cells each have a dimmer (a
+COLORado PXL Curve) dims on those, and its master dimmer is held at full so
+the bar is not dimmed twice. A face whose pixels have no dimmer of their own
+beside layers that do (a Spiider's nineteen pixels under a flower and a
+pattern layer, each with a dimmer, and a master over all of it) is read the
+other way round: every dimmer is held at full and the colours carry the level,
+so the look's dimmer reaches every pixel and a dimmer wave across the face
+reaches the wire. A filter picked on such a fixture's colour wheel darkens the
+pixels so the filter shows, and the dimmer of the layer it colours carries
+the look's level for as long as it is picked. The same holds for any face
+whose pixels have no dimmer of their own, a plain RGB batten under a master
+included. A pixel that is a dimmer and nothing else (a CLF Nero's 28 white
+beam segments, a sunstrip's lamps, a blinder's cells) is a head of its own,
+a white head that follows its own level, when the fixture has two or more of
+them; one alone is the fixture's dimmer. A background colour table's level
+is the dimmer that goes with the table: the one on the table's geometry,
+else the next dimmer the file lists after it. Every shutter follows the
+look's strobe, a flash-rate channel written as `StrobeRate` included.
+
+**More than one DMX break.** A fixture that keeps some channels on a second
+break (a pixel section addressed apart from the main body) is laid out as one
+block, break after break:
+patch its breaks back to back on the fixture and the addresses line up. The
+footprint is the whole block.
+
+**Files the importer forgives.** `description.xml` is found in any folder or
+spelling of case inside the archive; UTF-16, Latin-1 and byte-order-marked
+files read; a 24-bit channel is driven on its two coarse bytes and counted
+whole; two modes whose names slug to one id are numbered rather than the
+second replacing the first. A description over 64 MB, or an archive with no
+description at all, is refused with a message, and an importer error of any
+kind is a message rather than a stuck import queue.
+
 A profile compiled by an older build carries its compiler version, and the
 Rig view flags it with **rebuild from library** when the importer has learned
 something since. Take the offer: a pixel array compiled before this could have
