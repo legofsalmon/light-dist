@@ -175,12 +175,13 @@ Select a pad → the Look tab shows its editor. A look is a list of **parts**; e
 - **Built-in colour and background** (on the Colour tab, where the fixture has them) — *built-in colour* picks one of the fixture's preset colours, and *background colour* and *background level* set the second colour a pixel fixture shows behind its programs. Picking a background colour brings its level up unless the look sets one.
 - **Programs** (imported fixtures with shows of their own) — *move program*, *program* and *program 2* pick from the fixture's own list by name or number, 0 being off, each with its speed and fade where the fixture has them. The fixture plays a program itself, so the stage shows the look around it but not the program.
 - **Haze** — output + haze fan for hazer-type fixtures (merged highest-wins with the manual haze slider in the top bar).
+- **Other** (imported fixtures) — one fader for every channel the fixture has that LIGHT has no fader of its own for: a Spiider's zone and pattern channels, a MegaPointe's beam shaper, a control channel. Each reads as the DMX value it sends and the name of the band it lands in, from the fixture's own chart; where the chart has more than one band, a dropdown beside the fader jumps to a band's start. The value goes to the fixture as it is, so the stage view does not show it, a nudge cannot move it, and an effect cannot ride it. The tab appears only when something in the group has such a channel. A fixture imported before this build shows nothing here until the Rig view's **rebuild from library** has run on it.
 
 Enable a parameter with the checkbox to its left; a look only writes the parameters it has enabled, which is what lets layers combine cleanly.
 
 ### Effects
 
-Each part can stack effects. **browse…** opens a catalogue of ready-made ones — grouped, searchable, and applied as you click so you can audition down the list — or build your own: an effect modulates one target (dimmer, hue, white, strobe, pan, tilt, the beam parameters, gobo spin, prism spin, flower spin) with a wave. The exception is **shape**, which drives pan and tilt together to trace a circle, a figure of eight, a square or a path you draw (see *Drawn paths* below):
+Each part can stack effects. **browse…** opens a catalogue of ready-made ones — grouped, searchable, and applied as you click so you can audition down the list — or build your own: an effect modulates one target with a wave, and any fader a fixture has is a target: dimmer, hue, white, strobe, pan, tilt, every beam parameter (zoom, focus, beam size, soften, tint, the blades, the wheel and prism spins, the angles, the shakes), move speed, the program speeds and fades, the background level. The target menu files them by family, the ones something in the group can take first and the rest below. A target the look never set swings about mid-travel. The wheels and the fixture's programs are targets too, stepped rather than swung (see *Wheels and programs* below). The exception is **shape**, which drives pan and tilt together to trace a circle, a figure of eight, a square or a path you draw (see *Drawn paths* below):
 
 | Wave | Feels like |
 |---|---|
@@ -190,8 +191,11 @@ Each part can stack effects. **browse…** opens a catalogue of ready-made ones 
 | chase | one-at-a-time run across the group (*width* = how many are lit) |
 | random | sample-and-hold flicker |
 | curve | one you draw: drag its points, bend a segment by its middle, and the value holds after the last point until the cycle restarts — a fast ramp then a level held to the end, which no fixed wave can do |
+| steps | a short list of levels you type, two to sixteen, each held for an equal share of the cycle: a four-step pulse to start with. *Snap* jumps between them, *ramp* moves evenly, *smooth* eases in and out |
 
 Every effect row draws one cycle of its wave in a strip beside the wave picker, with a mark in the live colour riding along it as the rig plays — the picture is computed the same way the engine computes the output, so the two cannot disagree. For a curve the strip is where you draw: double-click to add a point, right-click (or alt-click) to remove one, and the dashed run after the last point is the hold.
+
+**Wheels and programs.** A gobo or prism wheel, a colour wheel, the fixture's built-in colours and background colours, and its own programs are targets an effect steps through rather than swings, because a wheel has no halfway. Pick one and the row shows a chip for every slot the group's fixture names: tick the ones the effect should visit, and the wave says which is up — a ramp walks them in wheel order, a sine walks them there and back, a square shows the two ends, random picks any, and *steps* walks them in order. *Size* and *mix* only gate it, and the fixture's own change time decides how fast each slot arrives, so a four-slot gobo walk at 1 bar is a slot a beat.
 
 **Drawn paths.** Pick *drawn path* as a shape's figure and a pad opens beside it, starting as a triangle. The heads visit the points in turn at an even speed and come back to the ringed one, where the lap starts, so a long side takes longer than a short one. The lines between points are straight, so every point is a corner the heads visibly hit; add points where you want a curve to be rounder. Drag a point to move it, double-click a side to put a new point in it (up to 32), and right-click (or alt-click) a point to take it out (a path keeps at least two). The pad shows the path before *size*, *aspect* and *turn*, which apply on top as they do for every figure. The fixed figures get a small pad too, with a dot in the live colour riding round them. *Star* in the catalogue is a drawn path to start from. The path is saved with the effect, so it goes into the FX pool and to other shows with it.
 
@@ -342,7 +346,10 @@ to the loaded project: switching projects clears it.
 `+ new project…`, or `save as…`. Files live beside the app's data; the app
 remembers which one you had open.
 
-**Fixtures table.** Number fields (position, mount rotation, tilt, roll) accept typed
+**Fixtures table.** The first column is each fixture's number — what a plot, a
+console and the find box call it; an MVR brings it in, patching gives new
+fixtures the next one, and it can be typed. **export patch** saves the table
+as a CSV. Number fields (position, mount rotation, tilt, roll) accept typed
 values including negatives, or **drag left/right on the field to scrub**. Select
 rows first — click, ⇧-click for a range, ⌘-click to toggle, or drag a box — and
 any edit applies to the whole selection. The toolbar then offers
@@ -391,6 +398,17 @@ app looks. On a Mac that is almost always the Local Network permission: allow
 LIGHT under System Settings, Privacy & Security, Local Network, then quit and
 reopen it (the permission is only read when the app starts).
 
+**Merge in.** When a console shares the rig, switch `merge in` on for that
+universe in the Output tab and LIGHT takes the console's Art-Net for it into
+what it sends, channel by channel, highest wins, so the node hears one source
+and the DMX monitor shows what the rig gets. The console must broadcast, or
+send to this computer's address, on the same Art-Net universe. LIGHT
+answers ArtPoll as a controller and lists the universes it takes in on, so a
+console that sends only to the nodes it has found (a grandMA in its automatic
+mode) finds LIGHT by itself; the button reads `waiting` until frames arrive and `live`
+while they do. What arrived is
+dropped 2.5 s after the console goes quiet, and blackout still wins.
+
 **Ableton Link.** `link` in the top bar joins a Link session (native engine
 only) and shows the peer count. Tapping tempo in LIGHT leads the session.
 Link is not in 1.0.0 builds, pending Ableton's Link licence: there the switch
@@ -430,6 +448,39 @@ on the plan — drag to place, double-click to remove. They appear in both 3D
 views (`band` toggles them in-app, `M` in the pop-out window), so you can judge
 how a look actually lands on people. `STAGE WINDOW` in the top bar opens the native
 window with real beams, haze, and shadows.
+
+**What the stage view draws.** The 3D view in the app draws a look the way
+the native window does: the beam's cone and the pool where it lands, with the
+profile's own beam and field angles under the zoom the look sets. Beam size
+narrows the cone and its pool without dimming them, soften blurs the edge and
+widens the pool, the gobo the look picks is drawn on the pool from the
+picture in the fixture's file (a file without pictures draws an open beam),
+a prism splits the beam into its facets' copies, and both wheels turn at the
+speed the look's spin fader asks for, in the file's own degrees per second.
+The colour is the colour leaving the lens: warmth tints the beam the way a
+lamp at that colour temperature would (from the file's own Kelvin ends where
+it gives them), tint pushes it toward green or magenta, the colour wheel shows
+its filter, a position between two filters shows the split, and a spinning
+wheel turns its filters past the beam. A strobe flashes in the pattern the
+look picks (pulse, rise, fall, swell and the random ones) when the fixture
+has that pattern. Framing blades cut the beam where they are put, each end
+on its own so a blade can slant, and the whole set turns with the blade
+rotation (45 degrees each way in the picture). In the app the cut shows on
+the pool and the shaft; the native window cuts the shaft only, since its
+pools are real spotlights. The animation wheel scrolls the picture in the
+fixture's file across the beam, along the path the file gives, at the file's
+own speeds; a fixture whose file ships no picture, or whose wheel is put in
+on a channel of its own (a MegaPointe's), draws none. A fixture's own
+programs (a Curve's tilt macros, a Spiider's patterns, a Nero's lightning)
+are made up inside the fixture and no file says what they look like, so the
+stage draws a stand-in: an effect program as the heads' level chasing along
+the fixture, a move program as the head swaying in a figure of eight, both at
+the program's rate, and PROGRAM STAND-IN at the bottom of the canvas names
+the fixtures doing it. A moving head travels at the movement speed the
+look sets, and an endless pan or tilt keeps turning. A brighter fixture,
+by its file's lumens, reads brighter, and a narrow beam more so than a wide
+one. A pixel fixture's heads draw their beams but no pools, and a raw channel
+draws nothing.
 
 **The native window.** It opens framed on your whole rig — however big the plot
 is and wherever it sits — and stays where you put it after that; a patch edit

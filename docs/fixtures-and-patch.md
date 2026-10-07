@@ -18,6 +18,8 @@ Looks target **groups**, and group members are *heads*, not fixtures — a 4-par
 
 - **Art-Net universe** — the 15-bit port-address exactly as your node expects it (0-based on the wire; this rig's node listens on universe 1).
 - **sACN universe** — 1-based, if sACN is enabled.
+- **Priority** — the sACN priority (0–200) on this universe's packets; 100 is the default and what a grandMA sends. A node that merges by priority takes the higher sender, so when LIGHT shares a universe with a console, set LIGHT above 100 where LIGHT should win and below where the console should. (The grandMA3's own sACN *input* ignores priorities; this is for nodes and fixtures.)
+- **Merge in** — take another sender's Art-Net for this universe (a grandMA sharing the rig) into what LIGHT sends, channel by channel, highest wins, so the node hears one source and the DMX monitor shows the merged frame. The other sender must broadcast, or send to this computer's address, on the same Art-Net universe. The button reads *waiting* until frames arrive and *live* while they do; what arrived is dropped 2.5 s after the sender goes quiet, and blackout still wins. LIGHT does not answer ArtPoll, so a console that sends only to nodes its poll has found (a grandMA3 in its automatic mode) will not find LIGHT on its own: set it to broadcast, or to this computer's address. Art-Net only: sACN is not taken in.
 - **Destination** — empty = Art-Net broadcast (255.255.255.255) / sACN multicast; or enter your node's IP for unicast (IP literal only). **If the Mac is on Wi-Fi and the rig on Ethernet, set the node's unicast IP** — broadcast follows the default route (usually Wi-Fi) and the rig would hear nothing; unicast always routes out the correct interface.
 
 Output runs continuously at 40 Hz per enabled universe. The DMX monitor at the bottom shows live channel values; engine health (refresh rate, tick jitter) sits above it.
@@ -99,11 +101,31 @@ current patch) or full replace on import. Universes named in the file that
 don't exist yet are created automatically. Conventions: positions convert
 from MVR millimetres/Z-up to LIGHT metres/Y-up; addresses accept both the
 absolute and `universe.channel` forms — exporters vary, so check the patch
-table after a first import.
+table after a first import. Each fixture's **number** comes with it: the
+file's FixtureID (a console's fixture number) when it has one, its
+UnitNumber otherwise, and it shows in the table's first column, on the plan
+and in find. A fixture the file patches on more than one address break is
+patched on the first and named in the import message, because LIGHT
+patches a fixture once. Only the yaw of a fixture's matrix is read: which
+way a fixture faces at rest is LIGHT's own rule, from its height, and MVR's
+frame (a fixture standing on the floor) has no verified mapping onto it, so
+mounting tilt and roll are set in the table, not read from the file. A
+focus point in the file is not read either.
+
+## Exporting the patch (CSV)
+
+**export patch** in the Fixtures tab saves the patch as a CSV file, one row
+per fixture in patch order: number, name, manufacturer, model, mode,
+universe (its name and its Art-Net and sACN numbers), address, channel count,
+position in metres and mounting angles in degrees. It is what a console's
+patch importer or a spreadsheet wants; grandMA3 reads one through the
+community patch importer, and any desk that takes a CSV maps the columns
+by name. An MVR export, which would carry the fixture files as well, is not
+offered yet.
 
 ## Importing fixtures (GDTF)
 
-For anything beyond the built-ins, click **⇩ import .gdtf** in the Fixtures tab and pick a fixture file (e.g. from [gdtf-share.com](https://gdtf-share.com)). Every DMX mode in the file becomes a selectable profile (marked ⇩ in the dropdown), stored inside the project so it travels with your show. Supported in v1: dimmer, RGB(W) colour, 16-bit pan/tilt, shutter/strobe, and colour wheels (with automatic nearest-colour quantisation, like the derby); unmapped channels hold the fixture's own defaults. Both engines interpret imported profiles through one shared implementation, and the parity suite covers it.
+For anything beyond the built-ins, click **⇩ import .gdtf** in the Fixtures tab and pick a fixture file (e.g. from [gdtf-share.com](https://gdtf-share.com)). Every DMX mode in the file becomes a selectable profile (marked ⇩ in the dropdown), stored inside the project so it travels with your show. Supported in v1: dimmer, RGB(W) colour, 16-bit pan/tilt, shutter/strobe, and colour wheels (with automatic nearest-colour quantisation, like the derby). A channel the importer has no meaning for holds the fixture's own default until a look sets it: every such channel comes through as a raw fader on the look editor's **Other** tab, named from the file and carrying the chart's band names, so a fixture's zone modes, pattern selectors and control channels are driven even though LIGHT does not know what they mean. A channel the importer holds on purpose (a face's master dimmer at full) is not offered. Both engines interpret imported profiles through one shared implementation, and the parity suite covers it.
 
 **Pixel arrays.** A fixture with many emitters is usually written the way the
 GDTF spec intends: the colour channels are declared once on a template lens,
@@ -158,4 +180,5 @@ A profile compiled by an older build carries its compiler version, and the
 Rig view flags it with **rebuild from library** when the importer has learned
 something since. Take the offer: a pixel array compiled before this could have
 been short of both heads and channels, and the address after it may need to
-move.
+move; a profile compiled before the raw faders has no **Other** tab until it
+is rebuilt.

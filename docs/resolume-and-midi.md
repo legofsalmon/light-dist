@@ -36,6 +36,22 @@ Messages from another machine — a TouchOSC phone, a second Mac — are blocked
 
 The **OSC monitor** (Sync tab) shows the last messages received live. If nothing appears: check Arena's OSC output is enabled and pointed at the right port, and that LIGHT's listener is on (the OSC status dot in the top bar lights while messages arrive). If the line appears marked *ignored — other machines are blocked*, it came from another machine — see *other machines* above.
 
+### LIGHT sending OSC (messages out)
+
+LIGHT can tell one other machine what it is doing. Set its address and port under **Sync · MIDI → messages out** (empty = off; the setting is part of the show). LIGHT then sends:
+
+| Address | Args | When |
+|---|---|---|
+| `/light/column` | int (1-based) | a column fired — from a pad, a MIDI note, Arena, or an incoming `/light/column` |
+| `/light/tap` | int 1 | the tap button |
+| `/light/allstop` | int 1 | the panic (everything dark and cleared) |
+| `/light/bpm` | float | the tempo changed (at most four times a second) |
+| `/light/blackout` | int 0 / 1 | blackout went off / on |
+
+A freshly set destination is sent the current tempo and blackout at once, so a follower configured mid-show starts in step. Plain OSC 1.0 messages over UDP, no bundles — a Companion, QLab, a TouchOSC layout or a script can follow them. LIGHT never sends to its own listener (the same machine and the port under *Resolume link*), so a message cannot fire the column that produced it.
+
+**grandMA3.** The console's OSC input only understands its own addresses (`/[prefix]/Page1/Fader201`, `/[prefix]/cmd` with a command-line string), so it cannot follow `/light/*` directly; a small bridge (Companion, a Lua plugin, a script) that turns `/light/column N` into `/[prefix]/cmd "Go+ Sequence N"` is the way round, and the shapes of the `/light/*` messages above are fixed so such a bridge stays simple. The other direction needs nothing: a cue or macro on the MA can `SendOSC` `/light/column 3`, `/light/bpm 128` or `/light/blackout 1` to LIGHT's port (7700) once **other machines** is *accepted*.
+
 ### Current limits
 
 - Clip-level follows (`/composition/layers/N/clips/M/connect`) aren't mapped yet — columns are the sync unit. Per-clip mapping is on the roadmap.
