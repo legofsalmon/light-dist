@@ -38,8 +38,8 @@ does on a console.
 full. A level stored at zero would be a rig that came up dark next time with
 nothing on screen to explain why, and "comes up dark and safe" has to mean
 dark for a reason you can see. A fixture that must stay out of the show is a
-**mute**, which is a different tool: mutes survive a restart, and survive ALL
-STOP, where a level does not.
+**mute**, which is a different tool: a mute survives ALL STOP, where a level
+does not.
 
 Levels scale intensity only — the same rule every other master follows.
 
@@ -128,28 +128,38 @@ afterwards. On an APC40 it is STOP ALL CLIPS.
 
 ## Muting
 
-A universe can be muted: the engine keeps running and keeps sending, but that
-universe carries zeros. It is the polite way to silence one part of a rig
-without changing the show or unplugging anything.
+A fixture can be muted with the lamp button on its row in the Rig view's
+fixture table: the engine keeps running and keeps sending, but that fixture
+receives zeros. It is the polite way to silence a stuck or dead unit without
+changing the show or unplugging anything. A mute is live state: ALL STOP leaves
+it alone, and an ordinary restart clears it.
 
 ## What survives a restart
 
 The show does: looks, songs, patch, mappings, masters as saved.
 
-The **live state does not**. Which looks were running, blackout, held flashes —
-all gone. A restart always comes up dark. That is deliberate: an app that
-restores "everything at full" while someone is standing on a ladder is an app
-that hurts someone.
+The **live state does not**, on an ordinary launch. Which looks were running,
+blackout, mutes, held flashes — all gone, and LIGHT comes up dark. That is
+deliberate: an app that restores "everything at full" while someone is standing
+on a ladder is an app that hurts someone.
 
-**Being live does not survive either.** LIGHT comes back offline every time, on
-purpose and for the same reason. Going live is one click, and it is a click
+**After a crash it comes back**, because then the rig is still lit: Art-Net and
+sACN nodes hold the last frame they were sent. The launch right after LIGHT
+closed unexpectedly puts back what was playing — the look on each layer, the
+tempo, the grand master and speed, blackout, mutes and bypassed rows — so it
+matches the frame the rig is holding, and the pads show it playing again. Held
+flashes, freeze, group levels, live nudges and channel checks are never put back.
+
+**Being live does not survive either**, crash or not. LIGHT comes back offline
+every time, on purpose and for the same reason. Going live is one click, and it is a click
 somebody made on purpose rather than a setting a file remembered.
 
 ## Saving
 
 Everything autosaves about a second after you stop editing, with five rotating
 backups beside the project file. `⌘S` forces a save. `⌘Z` / `⇧⌘Z` undo and redo
-thirty steps, and a drag counts as one step rather than two hundred.
+a hundred steps (fewer on a show heavy with imported fixtures, whose history is
+kept under 64 MB), and a drag counts as one step rather than two hundred.
 
 History belongs to the loaded project: switching shows clears it, rather than
 risking one show's state being undone into another.
@@ -157,6 +167,19 @@ risking one show's state being undone into another.
 ## On the network
 
 The engine serves the same interface over HTTP, so a phone or tablet on the same
-network can drive the show from the floor. Note what that means: **anyone on
-that network who finds the address gets a working console**, including ALL STOP.
-On a venue's open WiFi, treat it accordingly.
+network can open `http://<your-mac>:9900`. On its own, that device can only
+**watch**: the pads animate and the stage view follows, the status line reads
+WATCHING, and nothing pressed there reaches the rig. Finding the address is not
+enough to control the show, on a venue's open WiFi or anywhere else.
+
+To drive the show from the floor, **pair** the tablet. On the Mac, open
+Settings ▸ Devices, press *show pairing code* and point the tablet's camera at
+it — or press *copy link* and paste the link on the tablet. Keep that link: a
+bookmark or a home-screen icon stays paired. A paired device is a second
+operator. It fires pads, edits looks, and can black out or ALL STOP; going live,
+opening another show and importing stay with the Mac.
+
+**unpair every device**, in the same place, issues a new code: every device
+paired with the old one drops back to watching until it scans the new one. Use
+it for a lost tablet, or one that should never have been paired. The Mac's own
+window is always in full control.

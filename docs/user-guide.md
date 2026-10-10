@@ -6,7 +6,7 @@ How to operate LIGHT: looks, layers, cues, effects, and the controls that matter
 
 A rig needs five things set up before it lights, and LIGHT walks you through
 them. The steps appear by themselves on a show with no fixtures — which is what
-**New project** gives you — and **Settings ▸ Rig setup** brings them back. Each
+**New project** gives you — and **Settings ▸ Help ▸ show the setup steps** brings them back. Each
 one ticks itself off by reading the show, so anything you have already done, or
 that arrived in an MVR import, is ticked before you get to it.
 
@@ -50,7 +50,7 @@ patched, grouped and staged. Fire some pads and look around.
 | Select without firing | Click the pad's **name strip** — useful mid-show |
 | Move a look to another pad | Drag the name strip onto the other pad |
 | Duplicate or clear a pad | Right-click the name strip (long-press on a touch screen) |
-| Fire a column (cue) | Click the column header, or keys `1`–`8` |
+| Fire a column (cue) | Click the column header, or keys `1`–`9` |
 | Hold a flash look | Press and hold the pad — it releases on mouse-up |
 | Clear a layer | `✕` in the layer header |
 | Rename or bypass a layer | Click the layer's name (hold on glass) and pick from its chooser |
@@ -296,7 +296,7 @@ session drives them itself over Web MIDI, and only one of the two ever writes.
 
 ## Saving
 
-Everything autosaves ~1 second after any edit, with five rotating backups (`.bak1`–`.bak5`) next to the project file. `⌘S` (or the save button) forces a save. Live-performance state (which looks are active, grand master, blackout) is deliberately *not* saved — a restart always comes up dark and safe.
+Everything autosaves ~1 second after any edit, with five rotating backups (`.bak1`–`.bak5`) next to the project file. `⌘S` (or the save button) forces a save. Live-performance state (which looks are active, grand master, blackout) is not part of the show, and an ordinary launch always comes up dark and safe. The one exception is the launch right after a crash, in the app: what was playing comes back — the look on each layer, the tempo, grand master and speed, blackout, mutes and bypassed rows — so it matches the frame the rig has been holding since, and output still stays offline until you go live. Held flashes, freeze, group levels, nudges and channel checks never come back.
 
 ## Keys and gestures
 
@@ -335,7 +335,8 @@ the beat, loops, and follows the speed master. Steps cannot nest.
 **Undo/redo.** `⌘Z` / `⇧⌘Z`, or the ↺ ↻ buttons. The history lives in the
 engine, so every screen — the laptop and the tablet — shares one: whoever made
 the edit, ⌘Z steps it back, and the button's tooltip names the step it will
-take ("undo rename song “Intro”"). A hundred steps; a drag counts as one.
+take ("undo rename song “Intro”"). A hundred steps, fewer on a show heavy with
+imported fixtures (the history is kept under 64 MB); a drag counts as one.
 Edits are steps: pads, looks, songs, columns, the rig, imports, Keep on a
 nudge, a learned MIDI mapping. What you play is not — song switches, masters,
 haze, nudges and blackout stay where they are when you undo, and undoing an
@@ -593,7 +594,9 @@ show from the floor, pair the tablet: on the Mac open Settings ▸ Devices, pres
 *show pairing code*, and point the tablet's camera at it (or press *copy link*
 and paste it on the tablet). Keep that link — a bookmark or a home-screen icon
 stays paired until someone presses *unpair every device* on the Mac. On a phone
-the look library folds itself away so the pads keep the width.
+the look library folds itself away so the pads keep the width. The tablet or
+phone needs iPadOS or iOS 15.4 or later, and a computer a current Safari,
+Chrome or Firefox; an older one shows a message saying so instead of the pads.
 
 **Fixture library.** Rig view ▸ Fixture library is every fixture you can patch
 from, in one searchable list: the built-ins, the generic layouts LIGHT ships

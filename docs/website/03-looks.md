@@ -103,8 +103,11 @@ A look is a list of **parts**. Each part points at one fixture group and carries
   fixture parks it, like the beam parameters. The spin fader's middle is
   stopped on most heads; either end is full speed one way.
 - **Strobe** — the rate, plus the pattern where the fixture has one: plain,
-  *pulse* (each flash ramps open and shut) or *random*. A fixture without the
-  pattern strobes plain, so a pattern can never silence a head.
+  *pulse* (each flash ramps open and shut), *random*, *rise* (each flash fades
+  in), *fall* (each fades out) or *swell* (both). Some fixtures add *random
+  rise*, *random fall*, *random pulse* and *pulse 2*, and with that many the
+  patterns are a list rather than buttons. A fixture without the pattern
+  strobes plain, so a pattern can never silence a head.
 - The derby-specific ring controls where they apply.
 
 Enable a parameter with the checkbox beside it. A look only writes the

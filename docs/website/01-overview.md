@@ -70,6 +70,9 @@ computed is caught before it reaches a stage.
   blocks a cue from firing.
 - It will not send DMX you did not ask for. Outputs are off by default in every
   new show.
-- It will not save your live state. A restart comes up dark: no looks running,
-  no blackout armed, masters where the show says they are. That is deliberate —
-  the alternative is an app that turns a rig on while you are plugging it in.
+- It will not bring your live state back on an ordinary launch. A restart comes
+  up dark: no looks running, no blackout armed, masters where the show says they
+  are. That is deliberate — the alternative is an app that turns a rig on while
+  you are plugging it in. The one exception is the launch right after a crash,
+  which puts back what was playing, because the rig has been holding that frame
+  all along; output still waits for you to go live.

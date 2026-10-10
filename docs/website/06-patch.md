@@ -86,10 +86,11 @@ was built against and imports the rest from **GDTF**.
 
 Import a `.gdtf` and every DMX mode inside it becomes a profile you can select
 in the table. The importer maps the standard attributes — dimmer, pan/tilt,
-RGB/W, shutter with its pulse and random bands, the beam parameters zoom, focus,
-beam size, soften and warmth, and one gobo wheel and one prism wheel (slot select
-and rotation; where a fixture has two of a kind, the one that rotates) — onto the
-parameters the look editor offers. A channel's resting value is what its
+RGB/W, shutter with its pattern bands (pulse, random, rise, fall, swell and their
+variants), the beam parameters zoom, focus, beam size, soften and warmth,
+and the gobo and prism wheels (slot select and rotation) — a second gobo wheel
+and a second prism too, where the fixture has them — onto the parameters the
+look editor offers. A channel's resting value is what its
 `InitialFunction` names, so a shutter that lists *closed* before *open* still
 rests open.
 

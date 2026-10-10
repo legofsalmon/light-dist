@@ -15,6 +15,8 @@ apply in the order they are listed.
 | **square** | on/off gate; `width` sets the duty |
 | **chase** | one head at a time across the group; `width` is how many are lit |
 | **random** | sample-and-hold flicker, reproducible from its seed |
+| **curve** | one you draw: drag its points and bend each segment, and the value holds after the last point until the cycle restarts — a fast ramp then a level held to the end |
+| **steps** | a short list of levels you type, each held for an equal share of the cycle; *snap*, *ramp* or *smooth* between them |
 
 **Targets:** dimmer, hue, white, strobe, pan, tilt, zoom, focus, beam size, soften,
 warmth, gobo spin, prism spin, and **shape**. A target the group cannot take is
@@ -35,6 +37,7 @@ Pick a figure instead:
 | **circle** | smooth, one lap a cycle |
 | **figure of eight** | crosses itself in the middle, twice a lap |
 | **square** | corners you can see the heads hit — mechanical on purpose |
+| **drawn path** | one you draw on a pad: the heads visit its points in turn, at an even speed |
 
 There is no wave to pick, because the figure *is* the waveform. Three knobs
 replace it:
@@ -48,7 +51,7 @@ replace it:
 Everything else works as it does for any effect. `size` is how much of the
 head's travel the figure spans, `rate` is how long a lap takes, and the spread
 puts each head at a different point on the figure so the beams chase each other
-round it. The catalogue ships six of these under **Movement**.
+round it. The catalogue ships seven of these under **Position**.
 
 ## The knobs
 
@@ -141,10 +144,9 @@ the steps it plays, so the toggle is not offered on one.
 
 ## Ready-made effects
 
-**browse…** beside `+ effect` opens the catalogue: 46 named starting points in
-five groups — Intensity, Colour, Movement, Beam, and Strobe and white — each
-with its target, its wave and its speed in musical time, and a sentence on when
-to reach for it. Search matches the name, the description and the group, so
+**browse…** beside `+ effect` opens the catalogue: 55 named starting points in
+four groups — Intensity, Colour, Position and Beam — each with its target, its
+wave and its speed in musical time, and a sentence on when to reach for it. Search matches the name, the description and the group, so
 "beat", "slow" and "chase" all find something.
 
 Picking one applies it to the part **straight away** and leaves the list open,

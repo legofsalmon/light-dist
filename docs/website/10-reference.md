@@ -123,7 +123,8 @@ as one file.
 
 ## Limits worth knowing
 
-- Undo is thirty steps and does not cross projects.
+- Undo is a hundred steps, fewer on a show heavy with imported fixtures (the
+  history is kept under 64 MB), and does not cross projects.
 - Steps cannot nest.
 - Effect **rate** cannot be driven by a dial or a pulse — everything else
   can. See [Controls](05-controls.md) for why.
